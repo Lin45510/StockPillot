@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="StockPilot.View.Products"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StockPilot.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="622"
+             Style="{StaticResource Page_Style}">
+    <UserControl.DataContext>
+        <local:ProductsVM/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Border Background="#d6d6d6"/>
+        <Label Content="Produtos" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="36"/>
+        <Button Name="BtnAdd" Content="Adicionar Produto" HorizontalAlignment="Left" Height="24" Margin="36,515,0,0" VerticalAlignment="Top" Width="122" Background="#0ec165" Style="{StaticResource PressButtonStyle}" Command="{Binding WindowProductCommand}"/>
+        <DataGrid Style="{StaticResource DataGridStyle}">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="Black"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Padding" Value="10, 0, 0, 0"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nome" Width="100">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Quantidade" Width="150"/>
+                <DataGridTextColumn Header="Preço"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox HorizontalAlignment="Left" Margin="36,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Style="{StaticResource TxtBoxStyle}" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,36 @@
+﻿<Window x:Class="StockPilot.View.Product"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockPilot.ViewModel"
+        mc:Ignorable="d"
+        Background="Transparent"
+        Title="Product" Height="350" Width="500">
+    <Grid>
+        <Border Background="#d6d6d6"/>
+        <Grid>
+            <Label Content="Produto" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" FontSize="24"/>
+            <Label Content="Nome" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36, 50, 0, 0"/>
+            <TextBox HorizontalAlignment="Left" Margin="36,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Style="{StaticResource TxtBoxStyle}"/>
+            <Label Content="Preço" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180, 50, 0, 0"/>
+            <TextBox HorizontalAlignment="Left" Margin="180,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Style="{StaticResource TxtBoxStyle}"/>
+            <Button Content="Adicionar Materiais" Height="24" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="350,77, 0, 0" Background="black" Style="{StaticResource PressButtonStyle}"/>
+            <DataGrid Style="{StaticResource DataGridStyle}" Width="436" Height="148" Margin="36,119,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Padding" Value="10, 0, 0, 0"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nome" Width="100"/>
+                    <DataGridTextColumn Header="Quantidade"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Adicionar Produto" Height="24" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,280, 0, 0" Background="#0ec156" Style="{StaticResource PressButtonStyle}"/>
+        </Grid>
+    </Grid>
+</Window>

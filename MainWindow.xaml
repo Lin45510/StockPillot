@@ -1,0 +1,139 @@
+﻿<Window x:Class="StockPilot.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockPilot.ViewModel"
+        xmlns:Menu="clr-namespace:StockPilot.Utilities"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="850"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <local:NavigationVM/>
+    </Window.DataContext>
+
+    <Grid>
+        <!--// Window Border //-->
+        <Border Background="#d6d6d6"/>
+
+        <Grid>
+            <!--// Base Grid-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="228"/>
+                <ColumnDefinition Width="622"/>
+            </Grid.ColumnDefinitions>
+            <Grid HorizontalAlignment="Left" Width="228">
+                <Border Background="#2b2b2b"/>
+
+                <StackPanel Width="228">
+                    <!--Stock-->
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding StockCommand}"
+                              IsChecked="True"
+                              x:Name="StockTab">
+                        <Grid>
+                            <Image Tag="{Binding ElementName=StockTab}">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="Images\stockUnselected.png"/>
+                                        <Setter Property="Height" Value="35"/>
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Stretch" Value="Uniform"/>
+                                        <Setter Property="Margin" Value="22,0,0,0"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Tag.IsChecked, RelativeSource= {RelativeSource Self}}" Value="true">
+                                                <Setter Property="Source" Value="Images\stock.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <TextBlock Text="Estoque" Tag="{Binding ElementName=StockTab}" Style="{StaticResource TabNameStyle}"/>
+                        </Grid>
+                    </Menu:Btn>
+                    <!--Products-->
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding ProductsCommand}"
+                              x:Name="ProductsTab">
+                        <Grid>
+                            <Image Tag="{Binding ElementName=ProductsTab}">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="Images\productUnselected.png"/>
+                                        <Setter Property="Height" Value="35"/>
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Stretch" Value="Uniform"/>
+                                        <Setter Property="Margin" Value="22,0,0,0"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Tag.IsChecked, RelativeSource= {RelativeSource Self}}" Value="true">
+                                                <Setter Property="Source" Value="Images\product.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <TextBlock Text="Produtos" Tag="{Binding ElementName=ProductsTab}" Style="{StaticResource TabNameStyle}"/>
+                        </Grid>
+                    </Menu:Btn>
+                    <!--// Orders //-->
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding OrdersCommand}"
+                              x:Name="OrdersTab">
+                        <Grid>
+                            <Image Tag="{Binding ElementName=OrdersTab}">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="Images\orderUnselected.png"/>
+                                        <Setter Property="Height" Value="35"/>
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Stretch" Value="Uniform"/>
+                                        <Setter Property="Margin" Value="22,0,0,0"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Tag.IsChecked, RelativeSource= {RelativeSource Self}}" Value="true">
+                                                <Setter Property="Source" Value="Images\order.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <TextBlock Text="Pedidos" Tag="{Binding ElementName=OrdersTab}" Style="{StaticResource TabNameStyle}"/>
+                        </Grid>
+                    </Menu:Btn>
+                    <!--// Finance //-->
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding FinanceCommand}"
+                              x:Name="FinanceTab">
+                        <Grid>
+                            <Image Tag="{Binding ElementName=FinanceTab}">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="Images\financeUnselected.png"/>
+                                        <Setter Property="Height" Value="35"/>
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Stretch" Value="Uniform"/>
+                                        <Setter Property="Margin" Value="22,0,0,0"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Tag.IsChecked, RelativeSource= {RelativeSource Self}}" Value="true">
+                                                <Setter Property="Source" Value="Images\finance.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <TextBlock Text="Financeiro" Tag="{Binding ElementName=FinanceTab}" Style="{StaticResource TabNameStyle}"/>
+                        </Grid>
+                    </Menu:Btn>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <ContentControl x:Name="Pages"
+                                Content="{Binding CurrentView}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

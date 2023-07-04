@@ -1,0 +1,54 @@
+﻿<Window x:Class="StockPilot.View.Order"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockPilot.View"
+        mc:Ignorable="d"
+        Background="Transparent"
+        Title="Order" Height="600" Width="600">
+    <Grid>
+        <Border Background="#d6d6d6">
+        </Border>
+        <Grid>
+            <Label Content="Pedido" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" FontSize="24"/>
+            <Label Content="Preço Total" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" FontSize="20"/>
+            <Label Content="00,00" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,65,0,0" FontSize="30"/>
+            <Button Content="Alterar Valor" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Background="Black" Margin="182,120,0,0" Style="{StaticResource PressButtonStyle}"/>
+            <Button Content="Redefinir Valor" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Background="Black" Margin="318,120,0,0" Style="{StaticResource PressButtonStyle}" />
+            <Label Content="Cliente" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="41,150,0,0"/>
+            <TextBox HorizontalAlignment="Left" Margin="41,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Style="{StaticResource TxtBoxStyle}"/>
+            <Label Content="Prazo" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="188,150,0,0"/>
+            <DatePicker HorizontalAlignment="Left" Height="24" Margin="191,177,0,0" VerticalAlignment="Top" Width="97" BorderBrush="Transparent"/>
+            <Label Content="Pagamento" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="312,150,0,0"/>
+            <ComboBox Width="105" Margin="318,177,0,0" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Background="White" BorderBrush="Transparent">
+                <ComboBoxItem Content="Boleto" IsSelected="True"/>
+                <ComboBoxItem Content="Cartão"/>
+                <ComboBoxItem Content="Pix"/>
+                <ComboBoxItem Content="Dinheiro"/>
+            </ComboBox>
+            <Label Content="Entrega" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="459,150,0,0"/>
+            <ComboBox Width="105" Height="24" Margin="459,177,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <ComboBoxItem Content="Retirada" IsSelected="True"/>
+                <ComboBoxItem Content="Envio"/>
+            </ComboBox>
+            <DataGrid Style="{StaticResource DataGridStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="300" Width="528" Margin="36,223,0,0">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Padding" Value="10, 0, 0, 0"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Poduto" Width="100"/>
+                    <DataGridTextColumn Header="Quantidade" Width="150"/>
+                    <DataGridTextColumn Header="Tema" Width="100"/>
+                    <DataGridTextColumn Header="Preço"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Adicionar Pedido" Style="{StaticResource PressButtonStyle}"  Background="#0ec156" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,530,0,0"/>
+        </Grid>
+    </Grid>
+</Window>
