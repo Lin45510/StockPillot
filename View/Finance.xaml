@@ -7,28 +7,38 @@
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="622"
              Style="{StaticResource Page_Style}">
+
     <UserControl.DataContext>
         <local:FinanceVM/>
     </UserControl.DataContext>
+
     <Grid>
         <Border Background="#d6d6d6"/>
-        <Grid>
+        <Grid Margin="36,5,36,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Label Content="Financeiro" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" FontSize="36"/>
-            <TextBlock Text="{Binding Saldo}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0, 70, 0,0" FontSize="36"/>
-            <Button Content="Nova Entrada" Background="#0ec156" Height="24" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="211,148,0,0" Style="{StaticResource PressButtonStyle}" />
-            <Button Content="Nova Saida" Background="#c10e0e" Height="24" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="333,148,0,0" Style="{StaticResource PressButtonStyle}"/>
-            <DataGrid Style="{StaticResource DataGridStyle}" Margin="36,215,36,35">
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                        <Setter Property="Padding" Value="10, 0, 0, 0"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="R$" FontSize="36" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Saldo}" FontSize="36" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Content="Nova Entrada" Command="{Binding NewFinnanceWindowCommand}"
+                        Background="#0ec156" Height="24" Width="100" Style="{StaticResource PressButtonStyle}" />
+                <Separator Width="20" Opacity="0"/>
+                <Button Content="Nova Saida" Command="{Binding NewFinnanceWindowCommand}"
+                        Background="#c10e0e" Height="24" Width="100" Style="{StaticResource PressButtonStyle}"/>
+            </StackPanel>
+            <DataGrid Grid.Row="3" ItemsSource="{Binding finnancesList}"
+                      Style="{StaticResource DataGridStyle}" ColumnHeaderStyle="{StaticResource DatagridHeaderStyle}" RowStyle="{StaticResource DataGridRowStyle}" CellStyle="{StaticResource DataGridCell}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Valor"/>
-                    <DataGridTextColumn Header="Descrição"/>
+                    <DataGridTextColumn Header="data" Binding="{Binding Date}"/>
+                    <DataGridTextColumn Header="Valor" Binding="{Binding Value}"/>
+                    <DataGridTextColumn Header="Descrição" Binding="{Binding Description}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

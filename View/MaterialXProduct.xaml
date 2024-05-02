@@ -3,31 +3,54 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StockPilot.View"
+        xmlns:local="clr-namespace:StockPilot.ViewModel"
+        Name="MxPWindow"
         mc:Ignorable="d"
         Background="Transparent"
-        Title="MaterialXProduct" Height="350" Width="500">
+        Title="Material X Produto" Height="350" Width="500"
+        MaxHeight="350" MaxWidth="500" MinHeight="350" MinWidth="500">
+
+    <Window.DataContext>
+        <local:MaterialXProductVM/>
+    </Window.DataContext>
+
     <Grid>
         <Border Background="#d6d6d6"/>
-        <Grid>
-            <Label Content="Materiais" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" FontSize="24"/>
-            <TextBox HorizontalAlignment="Left" Margin="36,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Style="{StaticResource TxtBoxStyle}"/>
-            <DataGrid Style="{StaticResource DataGridStyle}" Margin="0,89,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="195" Width="428">
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                        <Setter Property="Padding" Value="10, 0, 0, 0"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Width="40"/>
-                    <DataGridTextColumn Header="Nome" Width="100"/>
-                    <DataGridTextColumn Header="Quantidade em Estoque"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Content="Adicionar Produto" Height="24" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,290, 0, 0" Background="#0ec156" Style="{StaticResource PressButtonStyle}"/>
+        <Grid Margin="36,5,36,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="45"/>
+            </Grid.RowDefinitions>
+            <Label Content="Materiais"
+                   HorizontalAlignment="Center" FontSize="24"/>
+            <StackPanel Grid.Row="1">
+                <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Width="130" Style="{StaticResource TxtBoxStyle}"/>
+                <DataGrid ItemsSource="{Binding MxPList}"
+                          Style="{StaticResource DataGridStyle}" ColumnHeaderStyle="{StaticResource SubWindowDataGridColumnHeaderStyle}" RowStyle="{StaticResource DataGridRowStyle}" CellStyle="{StaticResource DataGridCell}" Margin="0, 5, 0, 0">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <CheckBox IsChecked="{Binding MxPSelected}"
+                                                  Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.CheckCommand}" CommandParameter="{Binding}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Nome" Binding="{Binding MxPName}"/>
+                        <DataGridTextColumn Header="Quantidade em Estoque" Binding="{Binding MxP_MatAmmount}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Name="BtnConfirm" Command="{Binding ConfirmCommand}" CommandParameter="{Binding ElementName=MxPWindow}"
+                        Content="Confirmar" Height="24" Width="122" 
+                        Background="#0ec156" Style="{StaticResource PressButtonStyle}"/>
+                <Button Content="Fechar" Click="Button_Click"
+                        Background="#c10e0e" Style="{StaticResource PressButtonStyle}" Height="24" Width="122" Margin="8,0,0,0"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

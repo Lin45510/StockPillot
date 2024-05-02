@@ -3,20 +3,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StockPilot.View"
+        xmlns:local="clr-namespace:StockPilot.ViewModel"
         mc:Ignorable="d"
         Background="Transparent"
-        Title="NewFinance" Height="200" Width="500">
+        Title="NewFinance" Height="200" Width="500"
+        MinHeight="200" MinWidth="500" MaxHeight="200" MaxWidth="500">
+
+    <Window.DataContext>
+        <local:NewFinnanceVM/>
+    </Window.DataContext>
+
     <Grid>
         <Border Background="#d6d6d6"/>
-        <Grid>
-            <Label Content="Nova Saida" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" FontSize="24"/>
-            <Label Content="Valor" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36, 50, 0, 0"/>
-            <TextBox HorizontalAlignment="Left" Margin="36,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Style="{StaticResource TxtBoxStyle}"/>
-            <Label Content="Descrição" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240, 50, 0, 0"/>
-            <TextBox HorizontalAlignment="Left" Margin="240,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Style="{StaticResource TxtBoxStyle}"/>
-            <Button Content="{Binding BtnContent}" Height="24" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,128, 0, 0" Background="#0ec156" Style="{StaticResource PressButtonStyle}"/>
-            <Button Content="Fechar" Height="24" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,128, 0, 0" Background="#c10e0e" Style="{StaticResource PressButtonStyle}"/>
+        <Grid Margin="36, 5, 36, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Label Content="{Binding PageTittle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel>
+                    <Label Content="Valor" FontSize="15"/>
+                    <TextBox Name="TxtValue" Text="{Binding Value}" KeyUp="TxtValue_KeyUp"
+                             HorizontalAlignment="Left" TextWrapping="Wrap" Width="180" Style="{StaticResource TxtBoxStyle}"/>
+                </StackPanel>
+                <Separator Width="20" Opacity="0"/>
+                <StackPanel>
+                    <Label Content="Descrição" FontSize="15"/>
+                    <TextBox Name="TxtDescricao" Text="{Binding Description}" KeyUp="TxtDescricao_KeyUp"
+                             TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Style="{StaticResource TxtBoxStyle}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Name="BtnPageFunction" Content="Finalizar"
+                        Height="24" Width="122" Background="#0ec156" Style="{StaticResource PressButtonStyle}"/>
+                <Separator Width="20" Opacity="0"/>
+                <Button Name="BtnClose" Content="Fechar" Click="BtnClose_Click"
+                        Height="24" Width="122" Background="#c10e0e" Style="{StaticResource PressButtonStyle}"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

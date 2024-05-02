@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StockPilot.DataBase.DAO;
+using StockPilot.DataBase.DBModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +10,32 @@ namespace StockPilot.Model
 {
     public class MaterialModel
     {
-        public int WindowFunc { get; set; }
-        public int MaterialID { get; set; }
+        private readonly MaterialDAO Material_DAO = new();
+
+        #region Properties
+
         public string? MaterialName { get; set; }
         public int MaterialAmount { get; set; }
+
+        #endregion
+
+        #region Functions
+
+        public List<DBMaterial> GetMaterialsList()
+        {
+            return Material_DAO.DataList();
+        }
+
+        public void Insert(DBMaterial Material)
+        {
+            Material_DAO.Insert(Material);
+        }
+
+        public void Update(DBMaterial Material)
+        {
+            Material_DAO.Update(Material);
+        }
+
+        #endregion
     }
 }

@@ -22,6 +22,37 @@ namespace StockPilot.View
         public NewFinance()
         {
             InitializeComponent();
+            TxtValue.Focus();
         }
+
+        #region TxtValue Functions
+
+        private void TxtValue_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                TxtDescricao.Focus();
+            }
+        }
+
+        #endregion
+
+        #region TxtDescricao Functions
+
+        private void TxtDescricao_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region BtnClose Functions
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        #endregion
     }
 }

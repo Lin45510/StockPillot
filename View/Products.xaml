@@ -7,30 +7,82 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="622"
              Style="{StaticResource Page_Style}">
+
     <UserControl.DataContext>
         <local:ProductsVM/>
     </UserControl.DataContext>
 
     <Grid>
-        <Border Background="#d6d6d6"/>
-        <Label Content="Produtos" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="36"/>
-        <Button Name="BtnAdd" Content="Adicionar Produto" HorizontalAlignment="Left" Height="24" Margin="36,515,0,0" VerticalAlignment="Top" Width="122" Background="#0ec165" Style="{StaticResource PressButtonStyle}" Command="{Binding WindowProductCommand}"/>
-        <DataGrid Style="{StaticResource DataGridStyle}">
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background" Value="Black"/>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                    <Setter Property="Padding" Value="10, 0, 0, 0"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Nome" Width="100">
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Quantidade" Width="150"/>
-                <DataGridTextColumn Header="Preço"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <TextBox HorizontalAlignment="Left" Margin="36,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Style="{StaticResource TxtBoxStyle}" />
+        <Border Background="#d6d6d6">
+        </Border>
+        <Grid Margin="36,5,36,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Produtos" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+            <TextBox Grid.Row="1" 
+                     HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Style="{StaticResource TxtBoxStyle}"/>
+            <DataGrid Grid.Row="2" Style="{StaticResource DataGridStyle}" ColumnHeaderStyle="{StaticResource DatagridHeaderStyle}" RowStyle="{StaticResource DataGridRowStyle}" CellStyle="{StaticResource DataGridCell}"
+                      ItemsSource="{Binding Products}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Nome">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Label Content="{Binding ProductName}" FontSize="16"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Preço">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="R$" FontSize="16"/>
+                                    <Label Content="{Binding ProductPrice}" FontSize="16"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button Style="{DynamicResource DataGridButton}" Background="Transparent"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.WindowProductCommand}"
+                                            CommandParameter="{Binding}">
+                                        <StackPanel>
+                                            <Image Source="\Images\edit.png" Height="21"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button Style="{DynamicResource DataGridButton}" Background="Transparent"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteProductCommand}"
+                                            CommandParameter="{Binding}">
+                                        <StackPanel>
+                                            <Image Source="\Images\delete.png" Height="21"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="3" Name="BtnAdd" Content="Adicionar Produto" 
+                    HorizontalAlignment="Left" Height="24" VerticalAlignment="Center" Width="122" Background="#0ec165" Style="{StaticResource PressButtonStyle}" 
+                    Command="{Binding WindowProductCommand}"/>
+        </Grid>
     </Grid>
 </UserControl>

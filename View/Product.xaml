@@ -5,32 +5,79 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StockPilot.ViewModel"
         mc:Ignorable="d"
+        Name="ProductWindow"
         Background="Transparent"
-        Title="Product" Height="350" Width="500">
+        Title="Product" Height="350" Width="500"
+        MaxHeight="350" MaxWidth="500" MinHeight="350" MinWidth="500">
+
+    <Window.DataContext>
+        <local:ProductVM/>
+    </Window.DataContext>
+
     <Grid>
         <Border Background="#d6d6d6"/>
-        <Grid>
-            <Label Content="Produto" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" FontSize="24"/>
-            <Label Content="Nome" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36, 50, 0, 0"/>
-            <TextBox HorizontalAlignment="Left" Margin="36,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Style="{StaticResource TxtBoxStyle}"/>
-            <Label Content="Preço" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180, 50, 0, 0"/>
-            <TextBox HorizontalAlignment="Left" Margin="180,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Style="{StaticResource TxtBoxStyle}"/>
-            <Button Content="Adicionar Materiais" Height="24" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="350,77, 0, 0" Background="black" Style="{StaticResource PressButtonStyle}"/>
-            <DataGrid Style="{StaticResource DataGridStyle}" Width="436" Height="148" Margin="36,119,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                        <Setter Property="Padding" Value="10, 0, 0, 0"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nome" Width="100"/>
-                    <DataGridTextColumn Header="Quantidade"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Content="Adicionar Produto" Height="24" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,280, 0, 0" Background="#0ec156" Style="{StaticResource PressButtonStyle}"/>
+        <Grid Margin="36, 5, 36, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Content="{Binding Title}" 
+                       FontSize="24" HorizontalAlignment="Center"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <StackPanel>
+                    <Label Content="Nome" FontSize="15"/>
+                    <TextBox Name="TxtBoxName" Text="{Binding ProductName}" KeyUp="TxtBoxName_KeyUp"
+                             TextWrapping="Wrap" Width="150" Style="{StaticResource TxtBoxStyle}"/>
+                </StackPanel>
+                <StackPanel Margin="21,0,0,0">
+                    <Label Content="Preço" FontSize="15"/>
+                    <TextBox Name="TxtBoxPrice" Text="{Binding ProductPrice}" GotFocus="TxtBoxPrice_GotFocus" TextChanged="TxtBoxPrice_TextChanged" KeyUp="TxtBoxPrice_KeyUp"
+                             TextWrapping="Wrap" Width="150" Style="{StaticResource TxtBoxStyle}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <Button Content="Materiais Necessarios" Command="{Binding WindowMxPCommnad}"
+                        Height="24" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#2b2b2b" Style="{StaticResource PressButtonStyle}"/>
+                <DataGrid Grid.Row="2" ItemsSource="{Binding MaterialXProductsList}" IsReadOnly="False"
+                          Style="{StaticResource DataGridStyle}" ColumnHeaderStyle="{StaticResource SubWindowDataGridColumnHeaderStyle}" RowStyle="{StaticResource DataGridRowStyle}" CellStyle="{StaticResource DataGridCell}" Margin="0, 5, 0, 0">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Nome">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding MxPName}" FontSize="16"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Quantidade Necessaria" IsReadOnly="False" x:Name="MxpDataGrid" Binding="{Binding MXPAmmount}" FontSize="16">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.RemoveMaterialCommand}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource DataGridButton}" Background="Transparent">
+                                        <Image Source="\Images\remove.png" Height="21"/>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" >
+                <Button Name="BtnConfirm" Command="{Binding PageFunctionCommand}" CommandParameter="{Binding ElementName=ProductWindow}"
+                        Content="{Binding Title}" Height="24" Width="122"
+                        Background="#0ec156" Style="{StaticResource PressButtonStyle}"/>
+                <Button Content="Fechar" Click="Button_Click" 
+                        Background="#c10e0e" Style="{StaticResource PressButtonStyle}" Height="24" Width="122" Margin="8,0,0,0"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

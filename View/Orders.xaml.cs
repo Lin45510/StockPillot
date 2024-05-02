@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StockPilot.DataBase.DBModels;
+using StockPilot.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,21 @@ namespace StockPilot.View
         public Orders()
         {
             InitializeComponent();
+        }
+
+        private void DGOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            List<DBOrder> order = DGOrders.ItemsSource.OfType<DBOrder>().ToList();
+
+            ViewOrder viewOrder = new ViewOrder()
+            {
+                DataContext = new ViewOrderVM()
+                {
+                    order = order[DGOrders.SelectedIndex]
+                }
+            };
+
+            viewOrder.Show();
         }
     }
 }

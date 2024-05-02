@@ -1,0 +1,39 @@
+﻿<Window x:Class="StockPilot.View.OrderPrice"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockPilot.ViewModel"
+        mc:Ignorable="d"
+        Name="OrderPriceWindow"
+        Title="OrderPrice" Height="200" Width="400"
+        MinHeight="200" MinWidth="400" MaxHeight="200" MaxWidth="400">
+
+    <Window.DataContext>
+        <local:OrderPriceVM/>
+    </Window.DataContext>
+
+    <Grid>
+        <Border Background="#d6d6d6"/>
+        <Grid Margin="36, 5, 36, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+            <Label Content="Preço Total" FontSize="24" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1">
+                <Label Content="Preço" FontSize="16"/>
+                <TextBox Name="TxtPrice" Text="{Binding Price}" KeyUp="TxtPrice_KeyUp" GotFocus="TxtPrice_GotFocus" TextChanged="TxtPrice_TextChanged"
+                         Style="{StaticResource TxtBoxStyle}" Width="150"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" >
+                <Button Name="BtnConfirm" Command="{Binding PageFunctionCommand}" CommandParameter="{Binding ElementName=OrderPriceWindow}" 
+                        Content="Confirmar" Height="24" Width="122"
+                        Background="#0ec156" Style="{StaticResource PressButtonStyle}"/>
+                <Button Content="Fechar" Click="Button_Click" 
+                        Background="#c10e0e" Style="{StaticResource PressButtonStyle}" Height="24" Width="122" Margin="8,0,0,0"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

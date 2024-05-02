@@ -14,24 +14,66 @@
     <Grid>
         <Border Background="#d6d6d6">
         </Border>
-        <Grid>
-            <Label Content="Estoque" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="36"/>
-            <Button Name="BtnAdd" Content="Adicionar Material" HorizontalAlignment="Left" Height="24" Margin="36,515,0,0" VerticalAlignment="Top" Width="122" Background="#0ec165" Style="{StaticResource PressButtonStyle}" Command="{Binding WindowMaterialCommand}"/>
-            <DataGrid Style="{StaticResource DataGridStyle}" ItemsSource="{Binding Materials}" AutoGenerateColumns="False">
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                        <Setter Property="Padding" Value="10, 0, 0, 0"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
+        <Grid Margin="36,5,36,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Estoque" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+            <TextBox Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Style="{StaticResource TxtBoxStyle}"/>
+            <DataGrid Grid.Row="2" 
+                      Style="{StaticResource DataGridStyle}" ColumnHeaderStyle="{StaticResource DatagridHeaderStyle}" RowStyle="{StaticResource DataGridRowStyle}" CellStyle="{StaticResource DataGridCell}"
+                      ItemsSource="{Binding Materials}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nome" Width="100" Binding="{Binding MatName}"/>
-                    <DataGridTextColumn Header="Quantidade" Binding="{Binding MatAmmount}"/>
+                    <DataGridTemplateColumn Header="Nome">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding MatName}" FontSize="16"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Preço">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding MatAmmount}" FontSize="16"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button Style="{DynamicResource DataGridButton}" Background="Transparent"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.WindowMaterialCommand}"
+                                            CommandParameter="{Binding}">
+                                        <StackPanel>
+                                            <Image Source="\Images\edit.png" Height="21"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button Style="{DynamicResource DataGridButton}" Background="Transparent"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteMaterialCommand}"
+                                            CommandParameter="{Binding}">
+                                        <StackPanel>
+                                            <Image Source="\Images\delete.png" Height="21"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBox HorizontalAlignment="Left" Margin="36,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Style="{StaticResource TxtBoxStyle}"/>
+            <Button Grid.Row="3" Name="BtnAdd" Content="Adicionar Material" HorizontalAlignment="Left" Height="24" VerticalAlignment="Center" Width="122" Background="#0ec165" Style="{StaticResource PressButtonStyle}" Command="{Binding WindowMaterialCommand}"/>
         </Grid>
     </Grid>
 </UserControl>

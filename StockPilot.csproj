@@ -8,17 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\delete.png" />
+    <None Remove="Images\edit.png" />
     <None Remove="Images\finance.png" />
     <None Remove="Images\financeUnselected.png" />
     <None Remove="Images\order.png" />
     <None Remove="Images\orderUnselected.png" />
     <None Remove="Images\product.png" />
     <None Remove="Images\productUnselected.png" />
+    <None Remove="Images\remove.png" />
     <None Remove="Images\Stock.png" />
     <None Remove="Images\StockUnselected.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Images\delete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\finance.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -37,6 +46,9 @@
     <Content Include="Images\productUnselected.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\remove.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Stock.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -47,6 +59,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,22 +69,22 @@
     <Compile Update="DataBase\Interfaces\IDAO.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="DataBase\Models\Material.cs">
+    <Compile Update="DataBase\DBModels\DBMaterial.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="DataBase\Models\MaterialDAO.cs">
+    <Compile Update="DataBase\DAO\MaterialDAO.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="DataBase\Models\MaterialXProduct.cs">
+    <Compile Update="DataBase\DBModels\DBMaterialXProduct.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="DataBase\Models\Order.cs">
+    <Compile Update="DataBase\DBModels\DBOrder.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="DataBase\Models\Product.cs">
+    <Compile Update="DataBase\DBModels\DBProduct.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="DataBase\Models\ProductXOrder.cs">
+    <Compile Update="DataBase\DBModels\DBProductXOrder.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
@@ -80,6 +93,10 @@
     <None Update="DataBase\DataBase.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Design\" />
   </ItemGroup>
 
 </Project>

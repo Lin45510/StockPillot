@@ -1,0 +1,90 @@
+﻿<Window x:Class="StockPilot.View.ViewOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockPilot.ViewModel"
+        mc:Ignorable="d"
+        Title="ViewOrder" Height="450" Width="800"
+        MaxHeight="450" MaxWidth="800" MinHeight="450" MinWidth="800">
+
+    <Window.DataContext>
+        <local:ViewOrderVM/>
+    </Window.DataContext>
+
+    <Grid>
+        <Border Background="#d6d6d6"/>
+        <Grid Margin="36,5,36,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="45"/>
+            </Grid.RowDefinitions>
+            <Label Content="Detalhes do Pedido"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" FontSize="24"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Nome do Cliente:"/>
+                    <Label Content="{Binding order.Client}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Endereço:"/>
+                    <Label Content="{Binding order.Address}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Telefone:"/>
+                    <Label Content="{Binding order.Tell}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Prazo:"/>
+                    <Label Content="{Binding order.Term}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Forma de Entrega:"/>
+                    <Label Content="{Binding order.Delivery}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Forma de Pagamento:"/>
+                    <Label Content="{Binding order.Payment}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Total do Pedido:"/>
+                    <Label Content="R$"/>
+                    <Label Content="{Binding order.Total}"/>
+                </StackPanel>
+            </StackPanel>
+            <DataGrid Grid.Row="3" Style="{StaticResource DataGridStyle}" ColumnHeaderStyle="{StaticResource DatagridHeaderStyle}" RowStyle="{StaticResource DataGridRowStyle}" CellStyle="{StaticResource DataGridCell}"
+                      ItemsSource="{Binding order.ProductXOrder}" Name="DGOrders">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Produto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding PxOName}" FontSize="16"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Quantidade">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding PxOAmmount}" FontSize="16"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Tema">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding PxOTheme}" FontSize="16"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="4" Content="Fechar" Height="24" Width="122" HorizontalAlignment="Left" Click="Button_Click"
+                        Background="#c10e0e" Style="{StaticResource PressButtonStyle}"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockPilot.DataBase.Models
+namespace StockPilot.DataBase.DBModels
 {
-    public class ProductXOrder
+    public class DBProductXOrder
     {
         public int PxOID { get; set; }
         public int PxOProductID { get; set; }

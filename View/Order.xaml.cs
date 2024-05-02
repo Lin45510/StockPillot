@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StockPilot.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,42 @@ namespace StockPilot.View
         public Order()
         {
             InitializeComponent();
+            TxtCliente.Focus();
         }
+
+        #region TxtCliente
+
+        private void TxtCliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                TxtTelefone.Focus();
+            }
+        }
+
+        #endregion
+
+        #region TxtTelefone
+
+        private void TxtTelefone_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                TxtEndereco.Focus();
+            }
+        }
+
+        #endregion
+
+        #region Datagrid
+
+        private void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            UpdatePriceBtn.Focus();
+            UpdatePriceBtn.Command.Execute(null);
+        }
+
+        #endregion
+
     }
 }

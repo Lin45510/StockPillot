@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace StockPilot.View
 {
     /// <summary>
-    /// Lógica interna para ProductXOrder.xaml
+    /// Interaction logic for ViewOrder.xaml
     /// </summary>
-    public partial class ProductXOrder : Window
+    public partial class ViewOrder : Window
     {
-        public ProductXOrder()
+        public ViewOrder()
         {
             InitializeComponent();
         }

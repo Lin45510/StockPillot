@@ -24,7 +24,7 @@
     <DataTemplate DataType="{x:Type vm:OrderVM}">
         <view:Order/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:NewFinanceVM}">
+    <DataTemplate DataType="{x:Type vm:NewFinnanceVM}">
         <view:NewFinance/>
     </DataTemplate>
 </ResourceDictionary>

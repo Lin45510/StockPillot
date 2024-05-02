@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockPilot.DataBase.Models
+namespace StockPilot.DataBase.DBModels
 {
-    public class Material
+    public class DBMaterial
     {
         public int MatID { get; set; }
         public string MatName { get; set; }

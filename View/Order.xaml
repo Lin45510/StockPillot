@@ -3,52 +3,126 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StockPilot.View"
+        xmlns:local="clr-namespace:StockPilot.ViewModel"
         mc:Ignorable="d"
+        Name="OrderWindow"
         Background="Transparent"
-        Title="Order" Height="600" Width="600">
+        Title="Pedido" Height="600" Width="600"
+        MinHeight="600" MinWidth="600" MaxHeight="600" MaxWidth="600">
+
+    <Window.DataContext>
+        <local:OrderVM/>
+    </Window.DataContext>
+
     <Grid>
-        <Border Background="#d6d6d6">
-        </Border>
-        <Grid>
-            <Label Content="Pedido" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" FontSize="24"/>
-            <Label Content="Preço Total" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" FontSize="20"/>
-            <Label Content="00,00" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,65,0,0" FontSize="30"/>
-            <Button Content="Alterar Valor" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Background="Black" Margin="182,120,0,0" Style="{StaticResource PressButtonStyle}"/>
-            <Button Content="Redefinir Valor" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Background="Black" Margin="318,120,0,0" Style="{StaticResource PressButtonStyle}" />
-            <Label Content="Cliente" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="41,150,0,0"/>
-            <TextBox HorizontalAlignment="Left" Margin="41,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Style="{StaticResource TxtBoxStyle}"/>
-            <Label Content="Prazo" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="188,150,0,0"/>
-            <DatePicker HorizontalAlignment="Left" Height="24" Margin="191,177,0,0" VerticalAlignment="Top" Width="97" BorderBrush="Transparent"/>
-            <Label Content="Pagamento" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="312,150,0,0"/>
-            <ComboBox Width="105" Margin="318,177,0,0" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Background="White" BorderBrush="Transparent">
-                <ComboBoxItem Content="Boleto" IsSelected="True"/>
-                <ComboBoxItem Content="Cartão"/>
-                <ComboBoxItem Content="Pix"/>
-                <ComboBoxItem Content="Dinheiro"/>
-            </ComboBox>
-            <Label Content="Entrega" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="459,150,0,0"/>
-            <ComboBox Width="105" Height="24" Margin="459,177,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <ComboBoxItem Content="Retirada" IsSelected="True"/>
-                <ComboBoxItem Content="Envio"/>
-            </ComboBox>
-            <DataGrid Style="{StaticResource DataGridStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="300" Width="528" Margin="36,223,0,0">
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                        <Setter Property="Padding" Value="10, 0, 0, 0"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Poduto" Width="100"/>
-                    <DataGridTextColumn Header="Quantidade" Width="150"/>
-                    <DataGridTextColumn Header="Tema" Width="100"/>
-                    <DataGridTextColumn Header="Preço"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Content="Adicionar Pedido" Style="{StaticResource PressButtonStyle}"  Background="#0ec156" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,530,0,0"/>
+        <Border Background="#d6d6d6"/>
+        <Grid Margin="36, 5, 36, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="110"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Label Content="Pedido" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label Content="Preço Total" FontSize="20"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="R$" FontSize="30"/>
+                    <Label Content="{Binding Total}" FontSize="30"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Alterar Valor" Command="{Binding OrderPriceWindowCommand}" 
+                        Width="100" Background="Black" Style="{StaticResource PressButtonStyle}"/>
+                <Separator Width="20" Opacity="0"/>
+                <Button Name="UpdatePriceBtn" Content="Redefinir Valor" Command="{Binding UpdatePriceCommand}" 
+                        Width="100" Background="Black" Style="{StaticResource PressButtonStyle}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <Label Content="Cliente" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <TextBox Name="TxtCliente" Text="{Binding Clinte}" KeyUp="TxtCliente_KeyUp"
+                                 HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Style="{StaticResource TxtBoxStyle}"/>
+                    </StackPanel>
+                    <Separator Width="20" Opacity="0"/>
+                    <StackPanel>
+                        <Label Content="Telefone" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <TextBox Name="TxtTelefone" Text="{Binding Telefone}" KeyUp="TxtTelefone_KeyUp"
+                                 HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Style="{StaticResource TxtBoxStyle}"/>
+                    </StackPanel>
+                    <Separator Width="20" Opacity="0"/>
+                    <StackPanel>
+                        <Label Content="Endereço" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <TextBox Name="TxtEndereco" Text="{Binding Endereço}" 
+                                 HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Style="{StaticResource TxtBoxStyle}"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <Label Content="Prazo" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <DatePicker SelectedDate="{Binding Prazo}" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="97" BorderBrush="Transparent"/>
+                    </StackPanel>
+                    <Separator Width="20" Opacity="0"/>
+                    <StackPanel>
+                        <Label Content="Pagamento" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <ComboBox Width="105" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Background="White" BorderBrush="Transparent" SelectedIndex="{Binding PagamentoIndex}">
+                            <ComboBoxItem Content="Boleto"/>
+                            <ComboBoxItem Content="Cartão"/>
+                            <ComboBoxItem Content="Pix"/>
+                            <ComboBoxItem Content="Dinheiro"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <Separator Width="20" Opacity="0"/>
+                    <StackPanel>
+                        <Label Content="Entrega" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <ComboBox Width="105" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" SelectedIndex="{Binding EntregaIndex}">
+                            <ComboBoxItem Content="Retirada"/>
+                            <ComboBoxItem Content="Envio"/>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Margin="0,5,0,0">
+                <Button Content="Adicionar Produtos" Command="{Binding WindowPxOCommand}"
+                        Height="24" Width="122" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#2b2b2b" Style="{StaticResource PressButtonStyle}"/>
+                <DataGrid ItemsSource="{Binding PxOList}" IsReadOnly="False" CellEditEnding="DataGrid_CellEditEnding"
+                          Style="{StaticResource DataGridStyle}" ColumnHeaderStyle="{StaticResource SubWindowDataGridColumnHeaderStyle}" RowStyle="{StaticResource DataGridRowStyle}" CellStyle="{StaticResource DataGridCell}" Margin="0, 5, 0, 0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Poduto" Width="100" Binding="{Binding PxOName}" IsReadOnly="True" FontSize="16"/>
+                        <DataGridTextColumn Header="Quantidade" Width="90" Binding="{Binding PxOAmmount}" FontSize="16">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Tema" Width="100" Binding="{Binding PxOTheme}" FontSize="16">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Preço" Binding="{Binding PxOProductPrice}" IsReadOnly="True" FontSize="16"/>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.RemoveProductCommand}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource DataGridButton}" Background="Transparent">
+                                        <Image Source="\Images\remove.png" Height="21"/>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <Button Grid.Row="5" Command="{Binding InsertCommand}" CommandParameter="{Binding ElementName=OrderWindow}"
+                    Content="Adicionar Pedido" Style="{StaticResource PressButtonStyle}"  Background="#0ec156" Width="122" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>
